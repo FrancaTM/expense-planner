@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:expense_planner/models/transaction.dart';
 import 'package:expense_planner/widgets/transaction_list.dart';
 import 'package:expense_planner/widgets/new_transaction.dart';
+import 'package:expense_planner/widgets/chart.dart';
 
 void main() => runApp(MyApp());
 
@@ -58,6 +59,14 @@ class _MyHomePageState extends State<MyHomePage> {
     // ),
   ];
 
+  List<Transaction> get _recentTransactions {
+    return _userTransactions.where((tx) {
+      return tx.date.isAfter(DateTime.now().subtract(
+        Duration(days: 7),
+      ));
+    }).toList();
+  }
+
   void _addNewTransaction(String txTitle, double txAmount) {
     final newTx = Transaction(
       title: txTitle,
@@ -100,14 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Container(
-              width: double.infinity,
-              child: Card(
-                child: Text('Chart'),
-                color: Colors.blue,
-                elevation: 5,
-              ),
-            ),
+            Chart(_recentTransactions ),
             TransactionList(_userTransactions),
           ],
         ),
