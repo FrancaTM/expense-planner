@@ -9,16 +9,43 @@ import 'package:expense_planner/widgets/adaptive_flat_button.dart';
 class NewTransaction extends StatefulWidget {
   final Function addNewTx;
 
-  NewTransaction(this.addNewTx);
+  NewTransaction(this.addNewTx) {
+    print('Constructor NewTransaction widget');
+  }
 
   @override
-  _NewTransactionState createState() => _NewTransactionState();
+  _NewTransactionState createState() {
+    print('CreateState NewTransaction widget');
+    return _NewTransactionState();
+  }
 }
 
 class _NewTransactionState extends State<NewTransaction> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
   DateTime _selectedDate;
+
+  _NewTransactionState() {
+    print('Constructor NewTransaction state');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    print('InitState NewTransaction state');
+  }
+
+  @override
+  void didUpdateWidget(NewTransaction oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    print('didUpdateWidget NewTransaction state');
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    print('dispose NewTransaction state');
+  }
 
   void _submitData() {
     if (_amountController.text.isEmpty) {
