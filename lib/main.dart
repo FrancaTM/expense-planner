@@ -163,32 +163,40 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
   }
 
+  Widget _buildCupertinoNavBar() {
+    return CupertinoNavigationBar(
+      middle: Text('Personal Expenses'),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          GestureDetector(
+            child: Icon(CupertinoIcons.add),
+            onTap: () => _startAddNewTransaction(context),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMaterialAppBar(double curTextScaleFactor) {
+    return AppBar(
+      title: Text(
+        'Personal Expenses',
+        style: TextStyle(fontSize: 20 * curTextScaleFactor),
+      ),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () => _startAddNewTransaction(context),
+        ),
+      ],
+    );
+  }
+
   Widget _buildAppBar(double curTextScaleFactor) {
     return Platform.isIOS
-        ? CupertinoNavigationBar(
-            middle: Text('Personal Expenses'),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                GestureDetector(
-                  child: Icon(CupertinoIcons.add),
-                  onTap: () => _startAddNewTransaction(context),
-                ),
-              ],
-            ),
-          )
-        : AppBar(
-            title: Text(
-              'Personal Expenses',
-              style: TextStyle(fontSize: 20 * curTextScaleFactor),
-            ),
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(Icons.add),
-                onPressed: () => _startAddNewTransaction(context),
-              ),
-            ],
-          );
+        ? _buildCupertinoNavBar()
+        : _buildMaterialAppBar(curTextScaleFactor);
   }
 
   @override
